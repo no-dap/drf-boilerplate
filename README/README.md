@@ -19,7 +19,7 @@ django-rest-framework와 docker, elastic beanstalk deploy 연습을 위한 repo�
 ## 2. Materials
 
 ### 2.1 pyCharm
-- 파이참 사용은 강력하게 추천합니다. (productivity 차이가 너무 커요 + lint)
+- 파이참 사용은 강력하게 추천합니다. (productivity + lint + debug)
 - interperter 세팅만 하면 끝
 
 ### 2.2 DockerHub
