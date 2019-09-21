@@ -1,0 +1,26 @@
+lib/*
+media/*
+collected_static/*
+components/*
+node_modules/*
+typings/*
+reports/*
+uploads/*
+scripts/fixture/*
+
+*.pyc
+*.swp
+drf_boilerplate/settings/secret.json
+.idea
+npm-debug.log
+*.sql
+.coverage
+coverage.ini
+dump.rdb
+htmlcov
+
+\#*\#
+.\#*
+
+# webpack
+webpack-stats.json
