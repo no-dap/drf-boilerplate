@@ -25,7 +25,7 @@ SECRET_KEY = 'fi$%l#(0&5d8szc*50*$5d=41y5idls_946&&i8u-_yp@xlvls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'post',
 ]
 
 MIDDLEWARE = [
@@ -74,11 +76,14 @@ WSGI_APPLICATION = 'drf_boilerplate.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'NAME': 'drf_boilerplate',
+            'USER': 'root',
+            'PASSWORD': 'somniholic.mathpresso'
+        }
     }
-}
 
 
 # Password validation

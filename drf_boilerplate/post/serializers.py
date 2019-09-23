@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from drf_boilerplate.post.models import Post, Comment
+from post.models import Post, Comment
 
 
 class HandMadePostSerializer:
@@ -39,6 +39,9 @@ class HandMadePostSerializer:
     many=True handling
     등등 다양한 기능들을 굳이 손으로 구현해야 하나?
     serializer.ModelSerializer : Do magic!
+    serializer
+    modelserializer
+    hyperlinkedserializer
     """
 
 
@@ -76,6 +79,9 @@ class CommentSerializer(serializers.ModelSerializer):
         _model_class = self.Meta.model
         return _model_class.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        pass
+
 
 class PostVerySecretSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)  # nested serializer 의 경우 create 를 추가로 구현해주거나 read_only=True
@@ -93,7 +99,7 @@ class PostVerySecretSerializer(serializers.ModelSerializer):
         """
         return obj.comments.first().contents
 
-    def get_secret_comment(self, obj):
+    def get_secret_comments(self, obj):
         """
         viewset 에 들어온 요청이 admin 유저일 경우 값을 돌려주고
         아닐 경우 빈 스트링을 돌려줍니다.

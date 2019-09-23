@@ -7,6 +7,10 @@ class Post(models.Model):
     very_secret = models.CharField(max_length=25)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def CAP_title(self):
+        return
+
     def __str__(self):
         return self.title
 

@@ -1,10 +1,13 @@
+from django.views.generic import ListView
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
-from drf_boilerplate.post.models import Post
-from drf_boilerplate.post.serializers import PostSerializer, PostVerySecretSerializer
+from post.models import Post
+from post.serializers import PostSerializer, PostVerySecretSerializer
+from utils.decorators import paginate
 
 
 class PostModelViewSet(viewsets.ModelViewSet):
@@ -22,6 +25,8 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
     serializer_class = PostSerializer
 
     def get_queryset(self):
+        self.queryset
+        query_params = self.request.query_params
         """
         get queryset 사용 시 주의점
         1. self.queryset 으로 가져오지 말고 model_class.objects 로 queryset 을 한번 더 call 해주기
@@ -43,6 +48,7 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
             pass
         # ...
         return None
+
 
     """
     viewset 에 기본적으로 추가할 수 있는 5개의 action 들의 source code 입니다.
@@ -76,7 +82,10 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
     # CreateModelMixin
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -92,6 +101,7 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
 
     # UpdateModelMixin
     def update(self, request, *args, **kwargs):
+
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
@@ -122,12 +132,13 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
         instance.delete()
 
     # 위의 5가지 외에 추가 action 들은 action decorator 를 이용하여 추가합니다.
-    @action(
-        detail=False,
-        url_path=r'^do-something-on-list/$'  # _가 마음에 들지 않으면 수동으로 url_path 를 설정할 수 있습니다.
-    )
+    @action(detail=False, url_path=r'^do-something-on-list/$')
     def do_something_on_list(self, request):
         pass
+
+    @action(detail=False, url_path=r'^answer/(?<pk>[0-9]{4})')
+    def get_answer_detail(self, request, *kwargs):
+        pk = kwargs.get('pk')
 
     @action(
         detail=True,
@@ -141,3 +152,9 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
             pass
         else:
             pass
+
+
+class PostListView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'post.html'
