@@ -50,3 +50,92 @@ CSS는 HTML을 styling해주는 언어로 자주 사용되는 property는 아래
   
 기타 CSS들은 좀더 detail한 부분들을 styling하므로 필요 시 검색해서 사용하시는 것이 좋습니다.  
 
+
+## JQuery
+jquery는 가장 널리 사용되는 javascript framework중 하나입니다.  
+단순하게 하나의 페이지에서의 동적 interaction을 당담하므로 사용법이 아주 간단하다는 장점이 있습니다.  
+다만 조금 복잡한 기능을 하는 web application을 만들기에는 무리가 있으며,  
+웹 특유의 화면 전환시 깜빡거림을 해결할 수 없고, 복잡한 animation 처리가 힘듭니다.  
+  
+화면의 특정 element를 jquery Object로 가져오고, 해당 Object의 prototyped function들을 통해 조절합니다.  
+```
+$('document').ready(function () {
+    // browser cookie에서 csrf token을 가져옵니다.
+    let csrftoken = $.cookie('csrftoken');
+
+    $.ajaxSetup({
+        /* *
+        * ajax 요청을 실행하기 전에 header에 항상 X-CSRFToken을 심어줍니다.
+        * 같은 방식으로 
+        beforeSend: function (request, settings) {
+            request.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    });
+    
+    /* *
+    * jquery나 pure javascript 모두 selector를 query해서 element를 가져옵니다.
+    * id를 query할 경우 앞에 #을, class를 query할 경우 앞에 .을 붙여서 찾습니다.
+    * 혼용도 가능합니다.
+    */
+    const submitButton = $('#submitButton'); // return : id가 submitButton인 jquery element Object
+    const someClasses = $('.someClass'); // return : class가 someClass인 jquery element Object Array
+    const someSpecificClasses = $('.someClass.specific'); // return : class에 someClass, specific 둘 다 있는 것
+    const checkboxes = $('input[type="checkbox"]'); // return : checkbox들
+    const someClassImages = $('.someClass > img'); // return: someClass인 element를 부모로 갖는 img tag를 가진 element들
+    
+    /* *
+    * object든 object Array든 특정 method에 대한 동작은 똑같이 붙일 수 있습니다. (Array의 경우 모두 적용됨)
+    */
+    submitButton.on('click', callBackFunction());
+    someClasses.on('scroll', callBackFunction());
+    
+    // on 말고 해당 행동들도 모두 method로 구현되어 있습니다.
+    submitButton.click(callBackFunction());
+    
+    // 발생한 event를 argument로 받아 사용할 수도 있습니다.
+    submitButton.on('keypress', function (event) {
+        let e = event || window.event;
+        // enter의 경우 event.which가 13입니다.
+        if (e.which === 13) {
+            doSomething();
+        }
+    });
+    
+    // 단순하게 스타일을 변경하는 것도 가능합니다.
+    someClasses.on('scroll', function () {
+        this.addClass('somethingFancy');
+        // 또는 jquery object의 첫 번째 값은 항상 실제 element reference이므로, 다음같이 변경도 가능합니다.
+        this[0].classList.add('somethingFancy');
+        this[0].style.marginTop = '20px';
+    });
+    
+    // 또는 ajax 요청을...
+    submitButton.on('click', function () {
+        $.ajax({
+            url: '/api/v1/~',
+            type: 'POST',
+            data: {
+                'foo': 'bar',
+                'baz': 1
+            },
+            success: successCallBack(),
+            error: errorCallBack()
+        });
+    });
+});
+```
+
+## Webpack, minification, 난독화
+웹페이지를 구성하는 css, js파일이 많아지면 자연스럽게 로딩이 길어지게 되는데,  
+이 때문에 처음부터 각 하나의 파일에 코딩을 하게되면 유지보수가 너무나도 어려워집니다.  
+이것을 해결하기 위해 분리된 각 assets를 하나의 bundle로 만들어 주는 library가 webpack인데,  
+1. django가 각 static file을 serving함  
+2. 프로젝트의 규모가 그리 크지 않음  
+  
+의 이유로 webpack은 사용하지 않습니다. (추후 react나 angular를 배우신다면 그 때 사용하세요)
+마찬가지로 작은 규모의 웹페이지이므로 minification도 따로 하지 않고,  
+항상 안전한 코드를 작성해서 난독화도 굳이 하지 않도록 노력해야 합니다.  
+
+## TODO
+1. 기존 서버에서 간단하게 정보를 표시하고 post, patch, delete 할 수 있는 화면 구성해보기
+2. 작성한 웹 페이지를 포함한 코드를 deploy해서 결과 보기
