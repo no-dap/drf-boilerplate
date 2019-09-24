@@ -137,5 +137,5 @@ $('document').ready(function () {
 항상 안전한 코드를 작성해서 난독화도 굳이 하지 않도록 노력해야 합니다.  
 
 ## TODO
-1. 기존 서버에서 간단하게 정보를 표시하고 post, patch, delete 할 수 있는 화면 구성해보기
+1. 기존 서버에서 간단하게 정보를 표시하고 post, patch, delete 할 수 있는 화면 구성해보기 (+ mobile)
 2. 작성한 웹 페이지를 포함한 코드를 deploy해서 결과 보기
