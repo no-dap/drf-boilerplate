@@ -61,15 +61,15 @@ class FooAPITestCase(APITestCase):
 		assert(foo.content == data['title'])
 		assert(foo.bar.id == data['bar'])
   
-  def test_create_foo_without_title(self):
-    client = self.client
-    url = '/api/v1/foo/'
-    data = {
-      'content': 'foobar'
-      'bar': 2
-    }
-    response = self.client.post(url, data=data)
-    assert(response.status_code == 400)
+  	def test_create_foo_without_title(self):
+    		client = self.client
+    		url = '/api/v1/foo/'
+    		data = {
+   			'content': 'foobar'
+      			'bar': 2
+    		}
+    		response = self.client.post(url, data=data)
+    		assert(response.status_code == 400)
 
 	def tearDown(self):
 		"""
