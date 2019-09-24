@@ -4,8 +4,9 @@ test cycle은 실행할 때마다 비어있는 database 서버에 현재 작성�
 테스트 코드를 모두 실행한 후 database를 다시 destroy하는 것이 1회입니다.  
 텅텅 비어있는 db에서 코드가 돌아가기 때문에 의존적인 데이터는 모두 세팅을 해주어야 합니다.  
 test 명령어를 실행 시 test로 시작하는 모든 파이썬 파일 내부의 TestCase class 아래에 test_로 시작하는 모든 함수를 한번씩 실행합니다.  
-우리가 개발할 것은 API서버이기 때문에, 사전에 client 개발자와 약속된 input을 받아  
+우리가 개발할 것은 API서버이기 때문에, viewset의 테스트의 경우 사전에 client 개발자와 약속된 input을 받아  
 적절한 output을 내는 지 검사하는 코드를 간단하게 작성하면 됩니다.
+serializer에 대한 test도 마찬가지로 작성이 가능합니다.
 
 ## Example
 ```
@@ -87,3 +88,5 @@ refactoring을 한번 하는 방식을 TDD라고 합니다.(Test Driven Developm
 이 방식으로 개발을 할 경우 테스트 코드를 통한 코드의 견고함 뿐만이 아니라  
 목표가 명확해지므로 중간에 길을 잃는 상황이 잘 생기지 않습니다.  
 
+## TODO
+1. 연습용으로 작성한 serializer, viewset에 대한 테스트 작성하기
