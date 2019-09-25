@@ -50,8 +50,31 @@ CSS는 HTML을 styling해주는 언어로 자주 사용되는 property는 아래
   
 기타 CSS들은 좀더 detail한 부분들을 styling하므로 필요 시 검색해서 사용하시는 것이 좋습니다.  
 
+## Javascript
+Javascript는 웹 브라우저의 동적 scripting을 위해 주로 사용되는 언어입니다.  
+익숙하지 않으셔도 Python같은 OOP, Dynamic typed language이기 때문에 금방 적응하실 수 있으리라 믿습니다.  
+  
+Python이 class를 기반으로 Object oriented 되어있다면,  
+Javascript는 function을 기반으로 Object oriented 되어있는 언어인데, 이를 잘 알 수 있는 부분이 prototype입니다. 
+  
+또한 기본적으로 함수들이 asynchronous하게 돌기 때문에 callback 처리가 아주 중첩(callback hell)되는데,  
+이를 해결하기 위한 [Promise pattern](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)과 [async-await pattern](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)은 각각 ES6, ES8에서 추가되었기 때문에  
+old browser(공공의 적 ie)에서 지원이 되지 않기 때문에 callback에 익명 함수의 사용을 자제해야 합니다.  
 
-## JQuery
+### Cross Browser Compatibility
+웹 브라우저의 종류와 각 브라우저 버전의 갯수만큼의 다양한 종류의 interpreter에서 실행되어야 하는 javascript의 특징때문에  
+cross browser 지원은 꽤 중요하고 스트레스 받는 issue입니다.  
+예를 들어 10버전 이하의 ie에서 HTMLDomElement.appendChild() is not a function 같은 문제는 유명합니다.  
+해결 방법은  
+1. 브라우저 강제하기
+2. 해당 함수들 제거
+3. polyfill 추가  
+  
+세 가지가 있습니다. 
+이중 polyfill은 내장 interpreter에 저장되지 않은 함수를 직접 정의한 코드를 추가하는 방법으로,  
+해당 error내용 + polyfill로 구글링하면 남들이 미리 작성한 코드를 사용할 수 있습니다.  
+
+### JQuery
 jquery는 가장 널리 사용되는 javascript framework중 하나입니다.  
 단순하게 하나의 페이지에서의 동적 interaction을 당담하므로 사용법이 아주 간단하다는 장점이 있습니다.  
 다만 조금 복잡한 기능을 하는 web application을 만들기에는 무리가 있으며,  
