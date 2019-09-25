@@ -1,8 +1,10 @@
 from drf_boilerplate.settings.loader import load_credential
 from .base import *
 
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = [
+    'app-test-sean-dev.ap-northeast-2.elasticbeanstalk.com',
+]
 
 # AWS SETTINGS
 

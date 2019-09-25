@@ -8,7 +8,7 @@ if ENV_SETTINGS_MODE == 'prod':
     from .production import *
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backend.mysql',
+            'ENGINE': 'django.db.backends.mysql',
             'HOST': load_credential('PROD_DATABASE_HOST'),
             'NAME': load_credential('PROD_DATABASE_NAME'),
             'USER': load_credential('PROD_DATABASE_USER'),
