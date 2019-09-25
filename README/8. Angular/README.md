@@ -2,7 +2,7 @@
 Angular는 web SPA(Single Page Application)을 만들기 위한 framework입니다.  
 기본적으로 javascript의 superset인 typescript를 기본 언어로 사용합니다.(javascript, dart 사용가능)  
 1.x버전 단위인 AngularJS와는 전혀 다른 framework라고 보셔도 됩니다.(이후 버전들은 ngx라고 따로 부름.)  
-Classic한 MVC pattern이 아닌 component로 화면을 구성하고, service로 data를 관리합니다.
+Classic한 MVC pattern이 아닌 component로 화면을 구성하고, service로 data를 관리합니다.  
 Learning curve가 시작부터 아주 가파른 framework이기 때문에 시간이 남는 경우 맛보기 정도로만 진행하겠습니다.  
 
 ## How to start
@@ -46,7 +46,7 @@ ng g c my-component
 
 ## Observable
 rxjs에서 제공하는 object type으로 subscription이 가능한 객체입니다.  
-현대의 유행에 맞게 javascript code를 asynchronous, event-driven 하게 바꿔줍니다.
+현대의 유행에 맞게 javascript code를 asynchronous, event-driven 하게 바꿔줍니다.  
 기본적으로 Angular는 데이터 처리에 rx패턴을 사용하는 경우가 많아 처음에 익숙해지기가 어렵습니다.  
 
 ## StyleSheet
@@ -58,7 +58,7 @@ rxjs에서 제공하는 object type으로 subscription이 가능한 객체입니
 Component는 template, style sheet, selector 등을 decorator를 통해 지정해 주어야 합니다.  
 기본적으로 class를 사용하여 정의합니다. (ES6에서 2015년부터 추가됨)  
 대부분의 application framework에서 지원하는 [Lifecycle Hooking](https://angular.io/guide/lifecycle-hooks)이 Angular에도 존재합니다.  
-Template에서 일어나는 event를 제공받는 event binding과 데이터를 Template에서 제공하는 data binding이 존재합니다. 
+Template에서 일어나는 event를 제공받는 event binding과 데이터를 Template에서 제공하는 data binding이 존재합니다.  
 각 binding의 event와 data는 모두 기본적으로 reactive하게 제공됩니다.  
 
 ## Service
@@ -95,5 +95,17 @@ router module을 불러올 때 useHash: true를 넣어주는 것으로 사용이
     ```
   
 ## Build
-ng build 명령어를 통해 typescript 파일들을 javascript로 compile하고, compile된 javascript 파일들을 webpack으로 bundling하여 
+ng build 명령어를 통해 typescript 파일들을 javascript로 compile하고,  
+compile된 javascript 파일들을 webpack으로 bundling하여  
 별도의 node.js server의 serving 없이 바로 사용 가능한 형태로 빌드가 가능합니다.  
+
+
+## Testing
+:(  
+물론 Angular도 Jasmine이라는 library를 통해 테스트를 지원합니다.  
+TestBed라는 내부 testing class를 통해 component와 service등을 생성해서  
+원하는대로 component가 그려지는 지, service가 제대로 동작하는 지 테스트합니다.  
+또한 코드 테스트만이 아닌 유저 입장에서 사용하는 것처럼 흉내내는 e2e test도 존재합니다.  
+하지만 front-end 특성 상 작은 코드수정에도 test가 와장창인 경우가 많습니다.  
+(예를 들어 component 하나를 삭제하면 그 아래 존재하는 component의 위치 테스트는 모두 터지게 됩니다.)  
+공수가 서버에 비해 너무너무너무 많이 들어가는 일이므로 어느정도 규모있는 프로젝트에서만 진행하는 것을 권장합니다.  
