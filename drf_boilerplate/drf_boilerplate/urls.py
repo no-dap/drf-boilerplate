@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from post.views import PostViewSet
+from post.views import PostViewSet, CommentViewSet
 
 post_router = SimpleRouter()
 post_router.register(r'', PostViewSet)
 
+comment_router = SimpleRouter()
+comment_router.register(r'', CommentViewSet, base_name='comment')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/v1/post/', include(post_router.urls)),
+    url(r'^api/v1/comment/', include(comment_router.urls)),
 ]

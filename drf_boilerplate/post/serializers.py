@@ -46,6 +46,8 @@ class HandMadePostSerializer:
 
 
 class PostSerializer(serializers.ModelSerializer):
+    comments = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), many=True)
+
     class Meta:
         model = Post
         fields = '__all__'

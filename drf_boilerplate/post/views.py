@@ -5,8 +5,9 @@ from rest_framework.pagination import PageNumberPagination, LimitOffsetPaginatio
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
-from post.models import Post
-from post.serializers import PostSerializer, PostVerySecretSerializer
+from post.models import Post, Comment
+from post.paginations import PostPagination
+from post.serializers import PostSerializer, PostVerySecretSerializer, CommentSerializer
 from utils.decorators import paginate
 
 
@@ -23,9 +24,10 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    pagination_class = PostPagination
 
     def get_queryset(self):
-        self.queryset
+        self.queryset.order_by('id')
         query_params = self.request.query_params
         """
         get queryset 사용 시 주의점
@@ -35,19 +37,19 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
         """
         return Post.objects.filter()
 
-    def get_serializer_class(self):
-        """
-        action 에 따라 사용 할 serializer 를 불러오는 함수입니다.
-        """
-        if self.action == 'list':
-            return PostSerializer
-        elif self.action == 'retrieve':
-            return PostVerySecretSerializer
-        elif self.request.user.is_admin:
-            # return something else
-            pass
-        # ...
-        return None
+    # def get_serializer_class(self):
+    #     # """
+    #     # action 에 따라 사용 할 serializer 를 불러오는 함수입니다.
+    #     # """
+    #     # if self.action == 'list':
+    #     #     return PostSerializer
+    #     # elif self.action == 'retrieve':
+    #     #     return PostVerySecretSerializer
+    #     # elif self.request.user.is_admin:
+    #     #     # return something else
+    #     #     pass
+    #     # ...
+    #     return None
 
 
     """
@@ -136,7 +138,7 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
     def do_something_on_list(self, request):
         pass
 
-    @action(detail=False, url_path=r'^answer/(?<pk>[0-9]{4})')
+    @action(detail=False)
     def get_answer_detail(self, request, *kwargs):
         pk = kwargs.get('pk')
 
@@ -153,8 +155,20 @@ class PostViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateM
         else:
             pass
 
+    @action(detail=True, serializer_class=CommentSerializer)
+    def comment(self, request, *args, **kwargs):
+        post_id = kwargs.get('pk', None)
+        queryset = Comment.objects.filter(post_id=post_id)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'post.html'
+
+
+class CommentViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
