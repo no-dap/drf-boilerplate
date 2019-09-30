@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework.routers import SimpleRouter
 
 from post.views import PostViewSet, CommentViewSet
@@ -30,4 +32,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/v1/post/', include(post_router.urls)),
     url(r'^api/v1/comment/', include(comment_router.urls)),
+    url(r'^hi/$', TemplateView.as_view(template_name='index.html')),
 ]

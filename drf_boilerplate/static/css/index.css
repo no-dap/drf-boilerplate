@@ -1,0 +1,49 @@
+.container {
+    display: table;
+    width: 1920px;
+    height: 1080px;
+    border: 1px solid;
+
+}
+
+.child_container {
+    display: table-cell;
+    width: 50%;
+    border: 1px solid;
+}
+
+.top_box{
+    height: 70%;
+    border: 1px solid;
+    padding-left: 2.5%;
+}
+
+.bottom_box{
+    height: 30%;
+    border: 1px solid;
+}
+
+.question-container {
+    display: inline-block;
+    width: 30%;
+    height: 180px;
+    margin-top: 20px;
+    margin-right: 2.5%;
+    border: 1px solid;
+}
+
+.question-container > img {
+    width: 100%;
+}
+
+.top-buttons{
+    width: 90%;
+    height: 80px;
+
+}
+
+.top-button{
+    width: 30%;
+    height: 50px;
+    border: 1px solid;
+}

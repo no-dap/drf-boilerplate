@@ -45,21 +45,16 @@ class HandMadePostSerializer:
     """
 
 
-class PostSerializer(serializers.ModelSerializer):
-    comments = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), many=True)
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
 
 class CommentSerializer(serializers.ModelSerializer):
     """
     serializer 에서 주로 override 하는 함수들을 정리했습니다.
     """
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Comment
-        fields = ['id', 'contents', ]
+        fields = ['id', 'contents', 'image']
 
     def validate(self, attrs):
         """
@@ -83,6 +78,18 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         pass
+
+    @staticmethod
+    def get_image(obj):
+        return 'http://qanda-storage.s3.amazonaws.com/b32fe1ec-e8ee-4082-a366-c6c71862ad9c.jpg'
+
+
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = '__all__'
 
 
 class PostVerySecretSerializer(serializers.ModelSerializer):

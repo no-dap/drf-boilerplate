@@ -172,3 +172,6 @@ class PostListView(ListView):
 class CommentViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+
+

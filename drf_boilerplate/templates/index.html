@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="child_container"></div>
+    <div class="child_container">
+        <div class="top_box">
+            <div id="questions-container"></div>
+
+            <div class="top-buttons">
+                <button class="top-button" id="top-button-prev"> prev </button>
+                <button class="top-button" id="top-button-done"> done </button>
+                <button class="top-button" id="top-button-next"> next </button>
+            </div>
+
+        </div>
+        <div class="bottom_box"> </div>
+    </div>
+
+</div>
+<script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
