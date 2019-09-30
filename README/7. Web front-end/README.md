@@ -37,7 +37,7 @@ CSS는 HTML을 styling해주는 언어로 자주 사용되는 property는 아래
 > - scroll : 넘치는 만큼 숨기고, scroll을 추가합니다.
 
 
-### transition
+### transform
 > element 형태를 변화시키는 property입니다.
 > - rotate : 회전
 > - skew : 찌그러뜨리기
